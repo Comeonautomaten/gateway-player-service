@@ -1,0 +1,32 @@
+{
+  "name": "gateway-player-service",
+  "version": "0.1.0",
+  "description": "Framework player creation utilities for Gateway service",
+  "main": "src/index.js",
+  "type": "commonjs",
+  "scripts": {
+    "lint": "eslint .",
+    "test": "node tests/playerService.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Comeonautomaten/gateway-player-service.git"
+  },
+  "keywords": [
+    "gateway",
+    "player",
+    "automation",
+    "cypress"
+  ],
+  "author": "",
+  "homepage": "https://github.com/Comeonautomaten/gateway-player-service#readme",
+  "dependencies": {
+    "@faker-js/faker": "^9.0.0",
+    "axios": "^1.7.7",
+    "pesel": "^1.0.2"
+  },
+  "devDependencies": {
+    "chai": "^4.4.1",
+    "nock": "^13.5.2"
+  }
+}
