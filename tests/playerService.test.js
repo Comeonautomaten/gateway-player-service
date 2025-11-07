@@ -1,7 +1,7 @@
 const { expect } = require('chai');
 const nock = require('nock');
 
-const { PlayerService } = require('../src');
+const PlayerService = require('../src');
 
 async function run() {
   nock.disableNetConnect();
@@ -10,10 +10,12 @@ async function run() {
 
   const payloadMatcher = body => {
     expect(body).to.have.property('franchiseCode', 'SWEDEN_COMEON');
-    expect(body).to.have.property('password');
+    expect(body).to.have.property('password', 'Test123!');
     expect(body).to.have.property('username');
     expect(body).to.have.property('personalNumber');
     expect(body).to.have.nested.property('lossLimits.dailyLimit');
+    expect(body).to.have.nested.property('spendingLimits.monthlyLimit', '700');
+    expect(body).to.have.property('balanceLimit', '500');
     return true;
   };
 
@@ -27,8 +29,7 @@ async function run() {
     });
 
   const service = new PlayerService({
-    gatewayUrl,
-    defaultPassword: 'Secret123!'
+    gatewayUrl
   });
 
   const player = await service.createPlayer({
@@ -38,8 +39,8 @@ async function run() {
   expect(player.playerId).to.equal('123456');
   expect(player.username).to.equal('swed_user_1');
   expect(player.email).to.equal('swed_user_1@example.com');
-  expect(player.password).to.equal('Secret123!');
-  expect(player).to.not.have.property('raw');
+  expect(player.password).to.equal('Test123!');
+  expect(player.sessionId).to.equal('SESSIONKEY');
 
   scope.done();
 

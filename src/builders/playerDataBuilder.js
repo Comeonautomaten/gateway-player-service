@@ -13,7 +13,7 @@ const { generatePlayerProfile } = require('../utils/dataGenerator');
  * @returns {{payload: Object, profile: Object}}
  */
 function buildPlayerPayload(options) {
-  const { franchiseCode, password } = options;
+  const { franchiseCode } = options;
 
   if (!franchiseCode) {
     throw new Error('franchiseCode is required to build player payload');
@@ -29,11 +29,9 @@ function buildPlayerPayload(options) {
 
   const profile = generatePlayerProfile({ franchiseConfig, licenseDefaults });
 
-  const resolvedPassword = password || licenseDefaults.password;
-
   const basePayload = {
     frameworkType: licenseDefaults.frameworkType,
-    password: resolvedPassword,
+    password: licenseDefaults.password,
     franchiseCode,
     siteCode: franchiseConfig.siteCode,
     countryCode: franchiseConfig.countryCode,
@@ -61,6 +59,14 @@ function buildPlayerPayload(options) {
     depositLimits: { ...licenseDefaults.depositLimits },
     timeLimits: { ...licenseDefaults.timeLimits }
   };
+
+  if (licenseDefaults.spendingLimits) {
+    basePayload.spendingLimits = { ...licenseDefaults.spendingLimits };
+  }
+
+  if (licenseDefaults.balanceLimit) {
+    basePayload.balanceLimit = licenseDefaults.balanceLimit;
+  }
 
   const payload = { ...basePayload };
 

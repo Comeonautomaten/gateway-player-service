@@ -94,7 +94,6 @@ function generatePlayerProfile({ franchiseConfig, licenseDefaults }) {
   const email = createEmail(emailDomain);
   const usernamePrefix = (franchiseConfig.siteCode || 'user').replace(/[^a-zA-Z]/g, '').slice(0, 5).toLowerCase();
   const username = `${usernamePrefix}cy${faker.number.int({ min: 10000, max: 99999 })}`;
-  const password = franchiseConfig.password || licenseDefaults.password;
   const address = faker.location.streetAddress();
   const city = faker.location.city();
   const postalCode = franchiseConfig.postalCode || faker.location.zipCode();

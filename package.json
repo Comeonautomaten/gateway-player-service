@@ -1,7 +1,7 @@
 {
   "name": "gateway-player-service",
   "version": "0.1.0",
-  "description": "Framework player creation utilities for Gateway service",
+  "description": "Framework-agnostic player creation utilities for Gateway service",
   "main": "src/index.js",
   "type": "commonjs",
   "scripts": {
@@ -16,7 +16,7 @@
     "gateway",
     "player",
     "automation",
-    "cypress"
+    "testing"
   ],
   "author": "",
   "homepage": "https://github.com/Comeonautomaten/gateway-player-service#readme",

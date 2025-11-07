@@ -14,7 +14,7 @@ For local development you can clone the repository and install dependencies:
 npm install
 ```
 
-You can keep environment-specific variables (e.g. `GATEWAY_URL`, default passwords) in a `.env` file when consuming this module; the repository’s `.gitignore` already excludes it from source control.
+You can keep environment-specific variables (e.g. `GATEWAY_URL`) in a `.env` file when consuming this module; the repository's `.gitignore` already excludes it from source control.
 
 ## Supported Franchises (POC)
 
@@ -42,7 +42,10 @@ The service does not hardcode any endpoint. Pass your environment-specific Gatew
 const PlayerService = require('@comeonautomaten/gateway-player-service');
 
 const service = new PlayerService({
-  gatewayUrl: process.env.GATEWAY_URL,
-  defaultPassword: 'Test123!'
+  gatewayUrl: process.env.GATEWAY_URL
+});
+
+const player = await service.createPlayer({
+  franchiseCode: 'SWEDEN_COMEON'
 });
 ```

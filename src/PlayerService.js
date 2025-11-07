@@ -10,7 +10,6 @@ class PlayerService {
   /**
    * @param {Object} options
    * @param {string} options.gatewayUrl Base URL for the Gateway service (e.g. https://gateway.test)
-   * @param {string} [options.defaultPassword] Password used when none is provided per request
    * @param {Object} [options.httpClient] Custom HTTP client implementation
    * @param {number} [options.timeout] Timeout in milliseconds for the default HTTP client
    * @param {Object} [options.headers] Default headers applied to every request
@@ -18,7 +17,6 @@ class PlayerService {
   constructor(options = {}) {
     const {
       gatewayUrl,
-      defaultPassword = 'Test123!',
       httpClient,
       timeout,
       headers
@@ -29,7 +27,6 @@ class PlayerService {
     }
 
     this.gatewayUrl = gatewayUrl.replace(/\/$/, '');
-    this.defaultPassword = defaultPassword;
     this.httpClient = httpClient || createHttpClient({
       timeout,
       headers
@@ -41,19 +38,17 @@ class PlayerService {
    *
    * @param {Object} options
    * @param {string} options.franchiseCode Franchise code to target (e.g. SWEDEN_COMEON)
-   * @param {string} [options.password] Optional password override per player
    * @returns {Promise<Object>} Minimal player details required by consumers
    */
   async createPlayer(options = {}) {
-    const { franchiseCode, password } = options;
+    const { franchiseCode } = options;
 
     if (!franchiseCode) {
       throw new Error('franchiseCode is required');
     }
 
     const { payload, profile } = buildPlayerPayload({
-      franchiseCode,
-      password: password || this.defaultPassword
+      franchiseCode
     });
 
     const url = `${this.gatewayUrl}/player/`;
